@@ -19,8 +19,8 @@
     }
     :root {
         background-color: #5c2c45;
-        font-family: cozettevectorregular, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
-            Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        font-family: cozettevectorregular, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+            Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     }
 
     main {
