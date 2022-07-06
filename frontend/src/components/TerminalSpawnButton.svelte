@@ -7,12 +7,13 @@
 </script>
 
 <main>
-    <button on:click={SpawnInstance}> Spawn a new instance </button>
+    <button on:click={SpawnInstance}> spawn a new instance </button>
 </main>
 
 <style>
     button {
         background-color: #e6adcf;
+        font: inherit;
         margin: 1em;
         padding: 0.5em;
         border: none;

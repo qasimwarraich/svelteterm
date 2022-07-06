@@ -1,9 +1,9 @@
 <script lang="ts">
     import '../assets/xterm.css';
-    import './TerminalSpawnButton.svelte'
+    import './TerminalSpawnButton.svelte';
     import { AttachAddon } from 'xterm-addon-attach';
     import { onMount } from 'svelte';
-import TerminalSpawnButton from './TerminalSpawnButton.svelte';
+    import TerminalSpawnButton from './TerminalSpawnButton.svelte';
 
     onMount(async () => {
         const { Terminal } = await import('xterm');
@@ -28,7 +28,7 @@ import TerminalSpawnButton from './TerminalSpawnButton.svelte';
 <main>
     <div class="flexparent">
         <div class="termparent" id="terminal-parent">
-        <TerminalSpawnButton/>
+            <TerminalSpawnButton />
             <div id="terminal" />
         </div>
     </div>

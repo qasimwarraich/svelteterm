@@ -10,9 +10,16 @@
 </main>
 
 <style>
+    @font-face {
+        font-family: 'cozettevectorregular';
+        src: url('./assets/fonts/cozette/cozettevector-webfont.woff2') format('woff2'),
+            url('./assets/fonts/cozette/cozettevector-webfont.woff2') format('woff');
+        font-weight: normal;
+        font-style: normal;
+    }
     :root {
         background-color: #5c2c45;
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
+        font-family: cozettevectorregular, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
             Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     }
 
