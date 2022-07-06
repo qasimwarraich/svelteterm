@@ -28,6 +28,8 @@ func CreateContainer() string {
 	if err != nil {
 		log.Fatal("Unable to create docker container")
 	}
+
+	log.Printf("Container %s created", cont.ID)
 	return cont.ID
 }
 
