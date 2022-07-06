@@ -3,7 +3,7 @@
 </script>
 
 <main>
-    <h1>Chistole</h1>
+    <h1>Chistole: CLI Tutor</h1>
     <body>
         <Term />
     </body>
