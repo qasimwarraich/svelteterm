@@ -4,6 +4,7 @@
     import { AttachAddon } from 'xterm-addon-attach';
     import { onMount } from 'svelte';
     import TerminalSpawnButton from './TerminalSpawnButton.svelte';
+    export let containerid;
 
     onMount(async () => {
         const { Terminal } = await import('xterm');

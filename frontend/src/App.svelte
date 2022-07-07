@@ -2,11 +2,17 @@
     import Term from './components/Terminal.svelte';
     import TerminalSpawnButton from './components/TerminalSpawnButton.svelte';
     let activesession;
+    let container;
+
 </script>
 
 <main>
     <h1>Chistole: CLI Tutor</h1>
     <body>
+        <TerminalSpawnButton bind:activesession bind:container/>
+        {#if activesession}
+            <Term containerid={container.ID}/>
+        {/if}
     </body>
 </main>
 
