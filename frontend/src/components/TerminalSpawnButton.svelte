@@ -1,31 +1,7 @@
 <script lang="ts">
-    async function SpawnInstance() {
-        const response = await fetch('http://0.0.0.0:8080/api/createcontainer');
-        const container = await response.json();
-        StartContainer(container);
-    }
+    import { SpawnInstance, StopContainer } from './api';
 
-    async function StartContainer(container) {
-        let options = {
-            method: 'Post',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(container),
-        };
-        fetch('http://0.0.0.0:8080/api/startcontainer', options);
-    }
 
-    async function StopContainer(container) {
-        let options = {
-            method: 'Post',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(container),
-        };
-        fetch('http://0.0.0.0:8080/api/stopcontainer', options);
-    }
 </script>
 
 <main>
