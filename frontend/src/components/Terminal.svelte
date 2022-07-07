@@ -11,7 +11,7 @@
         const { Terminal } = await import('xterm');
         const term = new Terminal({
             fontSize: 12,
-            rows: 100,
+            rows: 60,
             cols: 180,
         });
         const socket = new WebSocket(
