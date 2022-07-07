@@ -4,6 +4,7 @@ import (
 	"cli-tutor-backend/src/pkg/dockerclient"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/cors"
 )
 
 func main() {
@@ -18,6 +19,7 @@ func main() {
 	}
 
 	app := fiber.New()
+	app.Use(cors.New(cors.ConfigDefault))
 
 	app.Get("/api/createcontainer", func(ctx *fiber.Ctx) error {
 		type Container struct {
