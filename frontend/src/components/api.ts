@@ -1,5 +1,5 @@
     export async function SpawnInstance() {
-        const response = await fetch('http://0.0.0.0:8080/api/createcontainer');
+        const response = await fetch('https://0.0.0.0:8080/api/createcontainer');
         const container = await response.json();
         await StartContainer(container);
         return container
@@ -13,7 +13,7 @@
             },
             body: JSON.stringify(container),
         };
-        fetch('http://0.0.0.0:8080/api/startcontainer', options);
+        fetch('https://0.0.0.0:8080/api/startcontainer', options);
     }
 
     export async function StopContainer(container) {
@@ -24,7 +24,7 @@
             },
             body: JSON.stringify(container),
         };
-        fetch('http://0.0.0.0:8080/api/stopcontainer', options);
+        fetch('https://0.0.0.0:8080/api/stopcontainer', options);
     }
 
     export async function ResizeContainerPTY(resize) {
@@ -35,5 +35,5 @@
             },
             body: JSON.stringify(resize),
         };
-        fetch('http://0.0.0.0:8080/api/resizecontainer', options);
+        fetch('https://0.0.0.0:8080/api/resizecontainer', options);
     }
