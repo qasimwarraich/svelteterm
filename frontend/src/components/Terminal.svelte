@@ -28,7 +28,6 @@
 <main>
     <div class="flexparent">
         <div class="termparent" id="terminal-parent">
-            <TerminalSpawnButton />
             <div id="terminal" />
         </div>
     </div>

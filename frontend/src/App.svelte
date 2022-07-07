@@ -1,11 +1,12 @@
 <script lang="ts">
     import Term from './components/Terminal.svelte';
+    import TerminalSpawnButton from './components/TerminalSpawnButton.svelte';
+    let activesession;
 </script>
 
 <main>
     <h1>Chistole: CLI Tutor</h1>
     <body>
-        <Term />
     </body>
 </main>
 
