@@ -10,6 +10,13 @@ func main() {
 	type Container struct {
 		ID string
 	}
+
+	type ContainerResize struct {
+		ID     string
+		Height uint
+		Width  uint
+	}
+
 	app := fiber.New()
 
 	app.Get("/api/createcontainer", func(ctx *fiber.Ctx) error {
@@ -43,6 +50,17 @@ func main() {
 			return err
 		}
 		dockerclient.StopContainer(container.ID)
+		return ctx.SendStatus(200)
+	})
+
+	app.Post("/api/resizecontainer", func(ctx *fiber.Ctx) error {
+		container := new(ContainerResize)
+		err := ctx.BodyParser(container)
+		if err != nil {
+			ctx.Status(fiber.StatusBadRequest).SendString(err.Error())
+			return err
+		}
+		dockerclient.HandlyPty(container.ID, container.Height, container.Width)
 		return ctx.SendStatus(200)
 	})
 

@@ -62,3 +62,20 @@ func StopContainer(id string) {
 	}
 	log.Printf("Container %s stopped", id)
 }
+
+func HandlyPty(id string, height uint, width uint) {
+	cli, err := client.NewEnvClient()
+	if err != nil {
+		log.Fatal("Unable to create docker client")
+		log.Fatal(err)
+	}
+
+	if err := cli.ContainerResize(context.Background(), id, types.ResizeOptions{
+		Height: height,
+		Width:  width,
+	}); err != nil {
+		log.Fatalf("Unable to resize container %s", id)
+		log.Fatal(err)
+	}
+	log.Printf("Container %s resized to %d %d", id, height, width)
+}
