@@ -18,8 +18,10 @@ func CreateContainer() string {
 	cont, err := cli.ContainerCreate(
 		context.Background(),
 		&container.Config{
-			Image: "cli-tutor",
-			Tty:   true,
+			Hostname:  "cli-tutor",
+			Tty:       true,
+			OpenStdin: true,
+			Image:     "cli-tutor",
 		},
 		&container.HostConfig{},
 		nil,
