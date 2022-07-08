@@ -14,8 +14,9 @@
             rows: 60,
             cols: 180,
         });
+
         const socket = new WebSocket(
-            `ws://0.0.0.0:6969/containers/${containerid}/attach/ws?logs=0&stream=1&stdin=1&stdout=1&stderr=1`
+            import.meta.env.VITE_DOCKERENDPOINT + containerid + import.meta.env.VITE_WEBSOCKETATTACH
         );
 
         const attachAddon = new AttachAddon(socket);
