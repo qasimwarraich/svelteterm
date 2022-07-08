@@ -12,7 +12,7 @@ import (
 func CreateContainer() string {
 	cli, err := client.NewEnvClient()
 	if err != nil {
-		log.Fatal("Unable to create docker client")
+		log.Print("Unable to create docker client")
 	}
 
 	cont, err := cli.ContainerCreate(
@@ -28,7 +28,7 @@ func CreateContainer() string {
 		nil,
 		"")
 	if err != nil {
-		log.Fatal("Unable to create docker container")
+		log.Print("Unable to create docker container")
 	}
 
 	log.Printf("Container %s created", cont.ID)
@@ -38,13 +38,13 @@ func CreateContainer() string {
 func RunContainer(id string) {
 	cli, err := client.NewEnvClient()
 	if err != nil {
-		log.Fatal("Unable to create docker client")
-		log.Fatal(err)
+		log.Print("Unable to create docker client")
+		log.Print(err)
 	}
 
 	if err := cli.ContainerStart(context.Background(), id, types.ContainerStartOptions{}); err != nil {
-		log.Fatalf("Unable to start container %s", id)
-		log.Fatal(err)
+		log.Printf("Unable to start container %s", id)
+		log.Print(err)
 	}
 	log.Printf("Container %s started", id)
 }
@@ -52,13 +52,13 @@ func RunContainer(id string) {
 func StopContainer(id string) {
 	cli, err := client.NewEnvClient()
 	if err != nil {
-		log.Fatal("Unable to create docker client")
-		log.Fatal(err)
+		log.Print("Unable to create docker client")
+		log.Print(err)
 	}
 
 	if err := cli.ContainerStop(context.Background(), id, nil); err != nil {
-		log.Fatalf("Unable to stop container %s", id)
-		log.Fatal(err)
+		log.Printf("Unable to stop container %s", id)
+		log.Print(err)
 	}
 	log.Printf("Container %s stopped", id)
 }
@@ -66,16 +66,16 @@ func StopContainer(id string) {
 func HandlyPty(id string, height uint, width uint) {
 	cli, err := client.NewEnvClient()
 	if err != nil {
-		log.Fatal("Unable to create docker client")
-		log.Fatal(err)
+		log.Print("Unable to create docker client")
+		log.Print(err)
 	}
 
 	if err := cli.ContainerResize(context.Background(), id, types.ResizeOptions{
 		Height: height,
 		Width:  width,
 	}); err != nil {
-		log.Fatalf("Unable to resize container %s", id)
-		log.Fatal(err)
+		log.Printf("Unable to resize container %s", id)
+		log.Print(err)
 	}
 	log.Printf("Container %s resized to %d %d", id, height, width)
 }
