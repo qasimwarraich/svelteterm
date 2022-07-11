@@ -11,6 +11,7 @@
         const { Terminal } = await import('xterm');
         const term = new Terminal({
             fontSize: 12,
+            fontFamily: "monospace",
             rows: 60,
             cols: 180,
         });
