@@ -1,4 +1,3 @@
-
 stages: 
     - build
     - deploy
@@ -27,6 +26,7 @@ build-frontend:
     script:
         - cd frontend
         - npm install
+        - npm run check
         - npm run build
 
     artifacts:
@@ -37,6 +37,7 @@ build-frontend:
 
 deploy-job-test:   
     stage: deploy 
+    environment: production
     when: manual
     dependencies:
         - build-backend
@@ -51,4 +52,4 @@ deploy-job-test:
         - mkdir -p ~/.ssh
         - chmod 700 ~/.ssh
     script:
-        - ssh -o StrictHostKeyChecking=no $SSH_USER@$SSH_SERVER touch spam.txt;
+        - ssh -o StrictHostKeyChecking=no $SSH_USER@$SSH_SERVER "cp -r /frontend/dist .";
