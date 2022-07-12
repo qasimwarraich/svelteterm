@@ -55,3 +55,4 @@ deploy-job-test:
     script:
         - ssh -o StrictHostKeyChecking=no $SSH_USER@$SSH_SERVER "rm -rf /var/www/tutor.chistole.ch/*";
         - scp -r -o StrictHostKeyChecking=no frontend/dist $SSH_USER@$SSH_SERVER:/var/www/tutor.chistole.ch/
+        - ssh -o StrictHostKeyChecking=no $SSH_USER@$SSH_SERVER "chown -R www-data:www-data /var/www/tutor.chistole.ch/*";
