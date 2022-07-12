@@ -1,10 +1,10 @@
 <script lang="ts">
-    import '../assets/xterm.css';
-    import './TerminalSpawnButton.svelte';
-    import { ResizeContainerPTY } from './api';
-    import { AttachAddon } from 'xterm-addon-attach';
     import { onMount } from 'svelte';
-    import type {ResizeRequest} from '../types/types'
+    import './TerminalSpawnButton.svelte';
+    import { AttachAddon } from 'xterm-addon-attach';
+    import { ResizeContainerPTY } from './api';
+    import type { ResizeRequest } from '../types/types';
+    import '../assets/xterm.css';
 
     export let containerid: string;
 
