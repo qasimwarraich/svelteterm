@@ -2,6 +2,9 @@ stages:
     - build
     - deploy
 
+workflow:
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
 
 build-backend:
     image: golang:1.18
@@ -11,12 +14,12 @@ build-backend:
     script:
         - cd backend
         - mkdir -p serverbin/
-        - go build -o serverbin/server ./src/main.go
+        - go build -o serverbin/go-fiber-server ./src/main.go
   
     artifacts:
         name: server
         paths:
-            - backend/serverbin/server
+            - backend/serverbin/go-fiber-server
 
 build-frontend:  
     image: node:16
@@ -42,7 +45,6 @@ deploy-job-test:
     stage: deploy 
     environment: production
     allow_failure: false
-    when: manual
     dependencies:
         - build-backend
         - build-frontend
@@ -56,14 +58,26 @@ deploy-job-test:
         - mkdir -p ~/.ssh
         - chmod 700 ~/.ssh
     script:
-        - echo "Deploying Frontend"
+        - echo "=Deploying Frontend="
+        - echo "Removing Old Static Web Content"
         - ssh -o StrictHostKeyChecking=no $SSH_USER@$SSH_SERVER "rm -rf /var/www/tutor.chistole.ch/*";
+        - echo "Adding New Static Web Content"
         - scp -r -o StrictHostKeyChecking=no frontend/dist $SSH_USER@$SSH_SERVER:/var/www/tutor.chistole.ch/
+        - echo "Adjusting File Permissions"
         - ssh -o StrictHostKeyChecking=no $SSH_USER@$SSH_SERVER "chown -R www-data:www-data /var/www/tutor.chistole.ch/*";
-        - echo "Deploying Backend"
-        - echo $PORT >> .env
-        - echo $CERTPATH >> .env
-        - echo $CERTKEYPATH >> .env
-        - ssh -o StrictHostKeyChecking=no $SSH_USER@$SSH_SERVER "rm -rf /root/server/*";
-        - scp -r -o StrictHostKeyChecking=no .env backend/serverbin/server $SSH_USER@$SSH_SERVER:/root/server/
-        - chmod + x /root/server/server
+        - echo "=Deploying Backend="
+        - echo "Creating Server .env File"
+        - echo PORT=$PORT >> .env
+        - echo CERTPATH=$CERTPATH >> .env
+        - echo CERTKEYPATH=$CERTKEYPATH >> .env
+        - echo "Removing Old Server Binary"
+        - ssh -o StrictHostKeyChecking=no $SSH_USER@$SSH_SERVER "shopt -u extglob; rm -v /root/server/!(*.log)";
+        - echo "Adding New Server Binary"
+        - scp -r -o StrictHostKeyChecking=no .env backend/serverbin/go-fiber-server $SSH_USER@$SSH_SERVER:/root/server/
+        - echo "Making Binary Executable"
+        - ssh -o StrictHostKeyChecking=no $SSH_USER@$SSH_SERVER "chmod + x /root/server/go-fiber-server";
+        - echo "Killing Current Server Process" Binary Executable"
+        - ssh -o StrictHostKeyChecking=no $SSH_USER@$SSH_SERVER "pkill go-fiber-server";
+        - echo "Starting New Server Process" Binary Executable"
+        - ssh -o StrictHostKeyChecking=no $SSH_USER@$SSH_SERVER "cd /root/server; ./go-fiber-server >> server.log &; disown -h %1;";
+        - echo "Deployment Complete!"
