@@ -17,13 +17,6 @@
 </main>
 
 <style>
-    @font-face {
-        font-family: 'cozettevectorregular';
-        src: url('./assets/fonts/cozette/cozettevector-webfont.woff2') format('woff2'),
-            url('./assets/fonts/cozette/cozettevector-webfont.woff2') format('woff');
-        font-weight: normal;
-        font-style: normal;
-    }
     :root {
         background-color: #5c2c45;
         font-family: cozettevectorregular, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
@@ -46,18 +39,8 @@
         max-width: 14rem;
     }
 
-    p {
-        max-width: 14rem;
-        margin: 1rem auto;
-        line-height: 1.35;
-    }
-
     @media (min-width: 480px) {
         h1 {
-            max-width: none;
-        }
-
-        p {
             max-width: none;
         }
     }
