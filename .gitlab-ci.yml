@@ -56,6 +56,14 @@ deploy-job-test:
         - mkdir -p ~/.ssh
         - chmod 700 ~/.ssh
     script:
+        - echo "Deploying Frontend"
         - ssh -o StrictHostKeyChecking=no $SSH_USER@$SSH_SERVER "rm -rf /var/www/tutor.chistole.ch/*";
         - scp -r -o StrictHostKeyChecking=no frontend/dist $SSH_USER@$SSH_SERVER:/var/www/tutor.chistole.ch/
         - ssh -o StrictHostKeyChecking=no $SSH_USER@$SSH_SERVER "chown -R www-data:www-data /var/www/tutor.chistole.ch/*";
+        - echo "Deploying Backend"
+        - echo $PORT >> .env
+        - echo $CERTPATH >> .env
+        - echo $CERTKEYPATH >> .env
+        - ssh -o StrictHostKeyChecking=no $SSH_USER@$SSH_SERVER "rm -rf /root/server/*";
+        - scp -r -o StrictHostKeyChecking=no .env backend/serverbin/server $SSH_USER@$SSH_SERVER:/root/server/
+        - chmod + x /root/server/server
