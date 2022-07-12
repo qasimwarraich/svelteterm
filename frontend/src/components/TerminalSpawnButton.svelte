@@ -4,7 +4,7 @@
 
     export let activesession: boolean = false;
 
-    export let container: Container;
+    export let container: Container = { ID: 'Default' };
 
     const createContainer = async () => {
         container = await SpawnInstance();
