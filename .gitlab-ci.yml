@@ -76,5 +76,4 @@ deploy-job-test:
         - scp -r -o StrictHostKeyChecking=no .env backend/serverbin/go-fiber-server $SSH_USER@$SSH_SERVER:/root/server/
         - echo "Restarting Server Systemd Service"
         - ssh -o StrictHostKeyChecking=no $SSH_USER@$SSH_SERVER "systemctl restart fiber-server.service"
-        - ssh -o StrictHostKeyChecking=no $SSH_USER@$SSH_SERVER "echo "Server process started with pid = $(pgrep go-fiber-server)""
         - echo "Deployment Complete!"
