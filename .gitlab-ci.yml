@@ -38,6 +38,7 @@ build-frontend:
 deploy-job-test:   
     stage: deploy 
     environment: production
+    allow_failure: false
     when: manual
     dependencies:
         - build-backend
@@ -52,4 +53,4 @@ deploy-job-test:
         - mkdir -p ~/.ssh
         - chmod 700 ~/.ssh
     script:
-        - ssh -o StrictHostKeyChecking=no $SSH_USER@$SSH_SERVER "cp -r /frontend/dist .";
+        - scp -r -o StrictHostKeyChecking=no frontend/dist $SSH_USER@$SSH_SERVER:/root/test
