@@ -4,8 +4,9 @@
     import { ResizeContainerPTY } from './api';
     import { AttachAddon } from 'xterm-addon-attach';
     import { onMount } from 'svelte';
+    import type {ResizeRequest} from '../types/types'
 
-    export let containerid;
+    export let containerid: string;
 
     onMount(async () => {
         const { Terminal } = await import('xterm');
@@ -23,11 +24,11 @@
         const attachAddon = new AttachAddon(socket);
         term.loadAddon(attachAddon);
         term.open(document.getElementById('terminal-parent'));
-        let resize = { id: containerid, height: term.rows, width: term.cols };
+        let resize: ResizeRequest = { ID: containerid, Height: term.rows, Width: term.cols };
         ResizeContainerPTY(resize);
 
         //Sets focus to terminal text input
-        const textarea = document.getElementsByClassName('xterm-helper-textarea').item(0);
+        const textarea: Element = document.getElementsByClassName('xterm-helper-textarea').item(0);
         (textarea as HTMLElement).focus();
     });
 </script>

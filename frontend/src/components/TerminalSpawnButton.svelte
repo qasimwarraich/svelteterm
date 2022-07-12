@@ -1,9 +1,10 @@
 <script lang="ts">
     import { SpawnInstance, StopContainer } from './api';
+    import type { Container } from '../types/types';
 
-    export let activesession = false;
+    export let activesession: boolean = false;
 
-    export let container;
+    export let container: Container;
 
     const createContainer = async () => {
         container = await SpawnInstance();
@@ -11,7 +12,7 @@
     };
 
     const killContainer = async () => {
-        container = await StopContainer(container);
+        await StopContainer(container);
         activesession = false;
     };
 </script>

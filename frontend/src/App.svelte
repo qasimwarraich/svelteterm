@@ -1,17 +1,18 @@
 <script lang="ts">
     import Term from './components/Terminal.svelte';
     import TerminalSpawnButton from './components/TerminalSpawnButton.svelte';
-    let activesession;
-    let container;
-
+    import type { Container } from './types/types';
+    import './assets/fonts.css';
+    let activesession: boolean;
+    let container: Container;
 </script>
 
 <main>
     <h1>Chistole: CLI Tutor</h1>
     <body>
-        <TerminalSpawnButton bind:activesession bind:container/>
+        <TerminalSpawnButton bind:activesession bind:container />
         {#if activesession}
-            <Term containerid={container.ID}/>
+            <Term containerid={container.ID} />
         {/if}
     </body>
 </main>
