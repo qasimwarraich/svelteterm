@@ -9,6 +9,6 @@ instances of docker containers where users can access the
 [cli-tutor](https://gitlab.com/qasimwarraich/cli-tutor) program through the
 comfort and "safety" of their browsers. 
 
-### Try is out!
+### Try it out!
 
 [Link To Live Version](https://tutor.chistole.ch)
