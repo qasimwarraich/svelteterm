@@ -74,9 +74,6 @@ deploy-job-test:
         - ssh -o StrictHostKeyChecking=no $SSH_USER@$SSH_SERVER "rm /root/server/*";
         - echo "Adding New Server Binary"
         - scp -r -o StrictHostKeyChecking=no .env backend/serverbin/go-fiber-server $SSH_USER@$SSH_SERVER:/root/server/
-        - echo "Making Binary Executable"
-        - ssh -o StrictHostKeyChecking=no $SSH_USER@$SSH_SERVER "chmod + x /root/server/go-fiber-server";
-        - echo "Killing Current Server Process"
         - ssh -o StrictHostKeyChecking=no $SSH_USER@$SSH_SERVER "pkill go-fiber-server";
         - echo "Starting New Server Process"
         - ssh -o StrictHostKeyChecking=no $SSH_USER@$SSH_SERVER "cd /root/server; ./go-fiber-server >> /root/logs/server.log &; disown -h %1;";
