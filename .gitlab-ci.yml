@@ -53,4 +53,5 @@ deploy-job-test:
         - mkdir -p ~/.ssh
         - chmod 700 ~/.ssh
     script:
-        - scp -r -o StrictHostKeyChecking=no frontend/dist $SSH_USER@$SSH_SERVER:/root/test
+        - ssh -o StrictHostKeyChecking=no $SSH_USER@$SSH_SERVER "rm -rf /var/www/tutor.chistole.ch/*";
+        - scp -r -o StrictHostKeyChecking=no frontend/dist $SSH_USER@$SSH_SERVER:/var/www/tutor.chistole.ch/
