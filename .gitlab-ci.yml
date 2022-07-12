@@ -25,6 +25,9 @@ build-frontend:
 
     script:
         - cd frontend
+        - echo $VITE_APIENDPOINT >> .env
+        - echo $VITE_DOCKERENDPOINT >> .env
+        - echo $VITE_WEBSOCKETATTACH >> .env
         - npm install
         - npm run check
         - npm run build
