@@ -71,7 +71,7 @@ deploy-job-test:
         - echo CERTPATH=$CERTPATH >> .env
         - echo CERTKEYPATH=$CERTKEYPATH >> .env
         - echo "Removing Old Server Binary"
-        - ssh -o StrictHostKeyChecking=no $SSH_USER@$SSH_SERVER "shopt -s extglob; rm -v /root/server/!(*.log); shopt -u extglob;";
+        - ssh -o StrictHostKeyChecking=no $SSH_USER@$SSH_SERVER "rm /root/server/*";
         - echo "Adding New Server Binary"
         - scp -r -o StrictHostKeyChecking=no .env backend/serverbin/go-fiber-server $SSH_USER@$SSH_SERVER:/root/server/
         - echo "Making Binary Executable"
@@ -79,6 +79,5 @@ deploy-job-test:
         - echo "Killing Current Server Process" Binary Executable"
         - ssh -o StrictHostKeyChecking=no $SSH_USER@$SSH_SERVER "pkill go-fiber-server";
         - echo "Starting New Server Process" Binary Executable"
-        - ssh -o StrictHostKeyChecking=no $SSH_USER@$SSH_SERVER "cd /root/server; ./go-fiber-server >> server.log &; disown -h %1;";
+        - ssh -o StrictHostKeyChecking=no $SSH_USER@$SSH_SERVER "cd /root/server; ./go-fiber-server >> /root/logs/server.log &; disown -h %1;";
         - echo "Deployment Complete!"
-
