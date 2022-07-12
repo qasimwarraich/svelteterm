@@ -17,7 +17,7 @@ build-backend:
     artifacts:
         name: server
         paths:
-            - serverbin/server
+            - ./serverbin/server
 
 build-frontend:  
     image: node:16
@@ -32,7 +32,7 @@ build-frontend:
     artifacts:
         name: app
         paths:
-            - dist/
+            - ./dist/
 
 
 deploy-job-test:   
@@ -51,8 +51,4 @@ deploy-job-test:
         - mkdir -p ~/.ssh
         - chmod 700 ~/.ssh
     script:
-        - ssh -o StrictHostKeyChecking=no $SSH_USER@$SSH_SERVER;
-        - cd
-        - touch spam.txt
-        - echo $PORT > spam.txt
-        - mkdir -p test        
+        - ssh -o StrictHostKeyChecking=no $SSH_USER@$SSH_SERVER; touch spam.txt;
