@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { fade } from 'svelte/transition';
     import Term from './components/Terminal.svelte';
     import TerminalSpawnButton from './components/TerminalSpawnButton.svelte';
     import type { Container } from './types/types';
@@ -13,9 +14,13 @@
         <TerminalSpawnButton bind:activesession bind:container />
         {#if activesession}
             <Term containerid={container.ID} />
+            <div transition:fade>
+                <Term containerid={container.ID} />
+            </div>
         {/if}
     </body>
 </main>
+<footer>chistole!</footer>
 
 <style>
     :root {
@@ -38,6 +43,15 @@
         line-height: 1.1;
         margin: 2rem auto;
         max-width: 14rem;
+    }
+
+    footer {
+        width: 100vw;
+        bottom: 0;
+        left: 0;
+        padding: 2px;
+        text-align: center;
+        position: fixed;
     }
 
     @media (min-width: 480px) {
