@@ -13,8 +13,8 @@
         const term = new Terminal({
             fontSize: 12,
             fontFamily: 'monospace',
-            rows: 60,
-            cols: 180,
+            rows: 40,
+            cols: 160,
         });
 
         const socket = new WebSocket(
