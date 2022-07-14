@@ -21,7 +21,7 @@ func CreateContainer() string {
 			Hostname:  "cli-tutor",
 			Tty:       true,
 			OpenStdin: true,
-			Image:     "cli-tutor",
+			Image:     "qasimwarraich/cli-tutor",
 		},
 		&container.HostConfig{},
 		nil,
