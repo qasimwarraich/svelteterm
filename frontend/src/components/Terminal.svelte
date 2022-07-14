@@ -11,7 +11,7 @@
     onMount(async () => {
         const { Terminal } = await import('xterm');
         const term = new Terminal({
-            fontSize: 12,
+            fontSize: 14,
             fontFamily: 'monospace',
             rows: 40,
             cols: 160,
