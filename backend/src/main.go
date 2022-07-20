@@ -1,8 +1,10 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"os"
+	"time"
 
 	"cli-tutor-backend/src/pkg/dockerclient"
 
@@ -72,6 +74,18 @@ func main() {
 			return err
 		}
 		dockerclient.HandlyPty(container.ID, container.Height, container.Width)
+		return ctx.SendStatus(200)
+	})
+
+	app.Post("/api/upload", func(ctx *fiber.Ctx) error {
+		file, err := ctx.FormFile("file")
+		if err != nil {
+			ctx.Status(fiber.StatusBadRequest).SendString(err.Error())
+			log.Println(err)
+		} else {
+			ts := time.Now().UTC().Format(time.RFC3339Nano)
+			ctx.SaveFile(file, fmt.Sprintf(os.Getenv("LOGPATH") + "%s-%s", ts, file.Filename))
+		}
 		return ctx.SendStatus(200)
 	})
 
