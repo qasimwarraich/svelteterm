@@ -21,7 +21,7 @@
             import.meta.env.VITE_DOCKERENDPOINT + containerid + import.meta.env.VITE_WEBSOCKETATTACH
         );
 
-        const attachAddon = new AttachAddon(socket);
+        const attachAddon = new AttachAddon(socket, {bidirectional: true} );
         term.loadAddon(attachAddon);
         term.open(document.getElementById('terminal-parent'));
         let resize: ResizeRequest = { ID: containerid, Height: term.rows, Width: term.cols };
