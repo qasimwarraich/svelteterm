@@ -20,7 +20,7 @@
                 environment so you cannot hurt your own system. In order to initiate a new session
                 press the "Spawn Instance Button". This will spawn a web terminal and connect it to
                 a docker container where you will have access to the tool. You can the start the
-                program by typing <code> ./cli-tutor</code> in the terminal.
+                program by typing <code> cli-tutor</code> in the terminal.
                 <br /><br />
 
                 Have fun!
