@@ -68,6 +68,7 @@ deploy-job-test:
         - echo "=Deploying Backend="
         - echo "Creating Server .env File"
         - echo PORT=$PORT >> .env
+        - echo LOGPATH=$LOGPATH >> .env
         - echo CERTPATH=$CERTPATH >> .env
         - echo CERTKEYPATH=$CERTKEYPATH >> .env
         - echo "Removing Old Server Binary"
