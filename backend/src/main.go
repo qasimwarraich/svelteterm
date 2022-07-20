@@ -87,6 +87,7 @@ func main() {
 			err := ctx.SaveFile(file, fmt.Sprintf(os.Getenv("LOGPATH")+"%s-%s", ts, file.Filename))
 			if err != nil {
 				ctx.Status(fiber.StatusInternalServerError).SendString(err.Error())
+                log.Println(err)
 				return err
 			} else {
 				log.Println("A log file has been saved.")
