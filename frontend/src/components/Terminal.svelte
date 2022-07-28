@@ -30,6 +30,8 @@
         //Sets focus to terminal text input
         const textarea: Element = document.getElementsByClassName('xterm-helper-textarea').item(0);
         (textarea as HTMLElement).focus();
+        const terminal: Element = document.querySelector(".terminal")
+        terminal.scrollIntoView({ behavior: 'smooth', block: 'center' })
     });
 </script>
 
