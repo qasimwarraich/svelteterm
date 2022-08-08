@@ -14,7 +14,7 @@ build-backend:
     script:
         - cd backend
         - mkdir -p serverbin/
-        - go build -o serverbin/go-fiber-server ./src/main.go
+        - go build -o serverbin/go-fiber-server
   
     artifacts:
         name: server
