@@ -6,7 +6,7 @@ import (
 	"os"
 	"time"
 
-	"cli-tutor-backend/src/pkg/dockerclient"
+	"cli-tutor-backend/pkg/dockerclient"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
@@ -73,7 +73,7 @@ func main() {
 			ctx.Status(fiber.StatusBadRequest).SendString(err.Error())
 			return err
 		}
-		dockerclient.HandlyPty(container.ID, container.Height, container.Width)
+		dockerclient.HandlePty(container.ID, container.Height, container.Width)
 		return ctx.SendStatus(200)
 	})
 

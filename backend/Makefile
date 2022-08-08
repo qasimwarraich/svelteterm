@@ -1,5 +1,5 @@
 CC = go
-MAIN = ./src/main.go
+MAIN = ./main.go
 
 all:
 	${CC} run ${MAIN}

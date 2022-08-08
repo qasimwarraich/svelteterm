@@ -63,7 +63,7 @@ func StopContainer(id string) {
 	log.Printf("Container %s stopped", id)
 }
 
-func HandlyPty(id string, height uint, width uint) {
+func HandlePty(id string, height uint, width uint) {
 	cli, err := client.NewEnvClient()
 	if err != nil {
 		log.Print("Unable to create docker client")
