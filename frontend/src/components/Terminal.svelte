@@ -32,6 +32,7 @@
         (textarea as HTMLElement).focus();
         const terminal: Element = document.querySelector(".terminal")
         terminal.scrollIntoView({ behavior: 'smooth', block: 'center' })
+        term.write("Connecting... If nothing appears, try hitting enter.")
     });
 </script>
 
