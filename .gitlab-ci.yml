@@ -1,3 +1,4 @@
+
 stages: 
     - build
     - deploy
@@ -100,9 +101,9 @@ deploy-job-fedora:
         - echo "Removing Old Static Web Content"
         - ssh -o StrictHostKeyChecking=no $SSH_USER@$SSH_SERVER "rm -rf /var/www/clitutor.chistole.ch/*";
         - echo "Adding New Static Web Content"
-        - scp -r -o StrictHostKeyChecking=no frontend/dist $SSH_USER@$SSH_SERVER:/var/www/tutor.chistole.ch/
+        - scp -r -o StrictHostKeyChecking=no frontend/dist $SSH_USER@$SSH_SERVER:/var/www/clitutor.chistole.ch/
         - echo "Adjusting File Permissions"
-        - ssh -o StrictHostKeyChecking=no $SSH_USER@$SSH_SERVER "chown -R $SERVER_USER /var/www/tutor.chistole.ch/*";
+        - ssh -o StrictHostKeyChecking=no $SSH_USER@$SSH_SERVER "chown -R $SERVER_USER /var/www/clitutor.chistole.ch/*";
         - echo "=Deploying Backend="
         - echo "Creating Server .env File"
         - echo PORT=$PORT >> .env
