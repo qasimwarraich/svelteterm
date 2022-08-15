@@ -81,7 +81,7 @@ deploy-job-ubuntu:
 
 deploy-job-fedora:   
     stage: deploy 
-    environment: production
+    environment: fedora
     allow_failure: false
     dependencies:
         - build-backend
