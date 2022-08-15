@@ -41,7 +41,7 @@ build-frontend:
             - frontend/dist/
 
 
-deploy-job-test:   
+deploy-job-ubuntu:   
     stage: deploy 
     environment: production
     allow_failure: false
@@ -64,7 +64,45 @@ deploy-job-test:
         - echo "Adding New Static Web Content"
         - scp -r -o StrictHostKeyChecking=no frontend/dist $SSH_USER@$SSH_SERVER:/var/www/tutor.chistole.ch/
         - echo "Adjusting File Permissions"
-        - ssh -o StrictHostKeyChecking=no $SSH_USER@$SSH_SERVER "chown -R www-data:www-data /var/www/tutor.chistole.ch/*";
+        - ssh -o StrictHostKeyChecking=no $SSH_USER@$SSH_SERVER "chown -R $SERVER_USER /var/www/tutor.chistole.ch/*";
+        - echo "=Deploying Backend="
+        - echo "Creating Server .env File"
+        - echo PORT=$PORT >> .env
+        - echo LOGPATH=$LOGPATH >> .env
+        - echo CERTPATH=$CERTPATH >> .env
+        - echo CERTKEYPATH=$CERTKEYPATH >> .env
+        - echo "Removing Old Server Binary"
+        - ssh -o StrictHostKeyChecking=no $SSH_USER@$SSH_SERVER "rm /root/server/*";
+        - echo "Adding New Server Binary And .env File"
+        - scp -r -o StrictHostKeyChecking=no .env backend/serverbin/go-fiber-server $SSH_USER@$SSH_SERVER:/root/server/
+        - echo "Restarting Server Systemd Service"
+        - ssh -o StrictHostKeyChecking=no $SSH_USER@$SSH_SERVER "systemctl restart fiber-server.service"
+        - echo "Deployment Complete!"
+
+deploy-job-fedora:   
+    stage: deploy 
+    environment: production
+    allow_failure: false
+    dependencies:
+        - build-backend
+        - build-frontend
+    
+    image: alpine
+
+    before_script:
+        - apk add openssh-client
+        - eval $(ssh-agent -s)
+        - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+        - mkdir -p ~/.ssh
+        - chmod 700 ~/.ssh
+    script:
+        - echo "=Deploying Frontend="
+        - echo "Removing Old Static Web Content"
+        - ssh -o StrictHostKeyChecking=no $SSH_USER@$SSH_SERVER "rm -rf /var/www/clitutor.chistole.ch/*";
+        - echo "Adding New Static Web Content"
+        - scp -r -o StrictHostKeyChecking=no frontend/dist $SSH_USER@$SSH_SERVER:/var/www/tutor.chistole.ch/
+        - echo "Adjusting File Permissions"
+        - ssh -o StrictHostKeyChecking=no $SSH_USER@$SSH_SERVER "chown -R $SERVER_USER /var/www/tutor.chistole.ch/*";
         - echo "=Deploying Backend="
         - echo "Creating Server .env File"
         - echo PORT=$PORT >> .env
