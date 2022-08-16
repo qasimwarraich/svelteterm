@@ -22,10 +22,31 @@ build-backend:
         paths:
             - backend/serverbin/go-fiber-server
 
-build-frontend:  
+build-frontend-prod:  
     image: node:16
 
     stage: build
+    environment: production
+
+    script:
+        - cd frontend
+        - echo $VITE_APIENDPOINT >> .env
+        - echo $VITE_DOCKERENDPOINT >> .env
+        - echo $VITE_WEBSOCKETATTACH >> .env
+        - npm install
+        - npm run check
+        - npm run build
+
+    artifacts:
+        name: app
+        paths:
+            - frontend/dist/
+
+build-frontend-dev:  
+    image: node:16
+
+    stage: build
+    environment: fedora
 
     script:
         - cd frontend
@@ -42,13 +63,14 @@ build-frontend:
             - frontend/dist/
 
 
+
 deploy-job-ubuntu:   
     stage: deploy 
     environment: production
     allow_failure: false
     dependencies:
         - build-backend
-        - build-frontend
+        - build-frontend-prod
     
     image: alpine
 
@@ -86,7 +108,7 @@ deploy-job-fedora:
     allow_failure: false
     dependencies:
         - build-backend
-        - build-frontend
+        - build-frontend-dev
     
     image: alpine
 
