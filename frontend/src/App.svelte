@@ -18,20 +18,24 @@
             <p>
                 This web interface allows you to use the cli tutor program in a sandboxed
                 environment so you cannot hurt your own system. In order to initiate a new session
-                press the "spawn a new instance" button. This will spawn a web terminal and connect it to
-                a docker container where you will have access to the tool.
+                press the "spawn a new instance" button. This will spawn a web terminal and connect
+                it to a docker container where you will have access to the tool.
 
                 <br /><br />
 
                 <u>
-                    Note! During the user study phase of this project you will
-                    be prompted to enter a name or identifier for your session
-                    upon spawning an instance.
+                    Note! During the user study phase of this project you will be prompted to enter
+                    a name or identifier for your session.
+                <br /><br />
+                    Please make sure you quit the tool properly, this means you
+                    must press "q" in the menu screen to quit the tool. upon
+                    spawning an instance.
                 </u>
 
                 <br /><br />
-                When you exit the tool you may use the "kill this instance" button to kill the terminal at which
-                point you are free to start a new session.
+                Please make sure you quit the tool properly, this means you must press "q" in the menu
+                screen to quit the tool. When you exit the tool you may use the "kill this instance"
+                button to kill the terminal at which point you are free to start a new session.
 
                 <br /><br />
 
