@@ -26,10 +26,9 @@
                 <u>
                     Note! During the user study phase of this project you will be prompted to enter
                     a name or identifier for your session.
-                <br /><br />
-                    Please make sure you quit the tool properly, this means you
-                    must press "q" in the menu screen to quit the tool. upon
-                    spawning an instance.
+                    <br /><br />
+                    Please make sure you quit the tool properly, this means you must press "q" in the
+                    menu screen to quit the tool. upon spawning an instance.
                 </u>
 
                 <br /><br />
