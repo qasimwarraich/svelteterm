@@ -8,8 +8,20 @@
     let activesession: boolean;
     let container: Container;
     let modal: InfoModal;
+
+    function beforeUnload() {
+        // Chrome requires returnValue to be set.
+        if (activesession) {
+            event.preventDefault();
+            event.returnValue = '';
+            // more compatibility
+            return '';
+        }
+        return null;
+    }
 </script>
 
+<svelte:window on:beforeunload={beforeUnload} />
 <main>
     <h1>Chistole: CLI Tutor</h1>
     <body>
