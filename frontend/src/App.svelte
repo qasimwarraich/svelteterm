@@ -39,14 +39,13 @@
                     Note! During the user study phase of this project you will be prompted to enter
                     a name or identifier for your session.
                     <br /><br />
-                    Please make sure you quit the tool properly, this means you must press "q" in the
-                    menu screen to quit the tool. upon spawning an instance.
+                    Please make sure you quit the tool properly, this means you must exit a lesson by
+                    typing "exit" and then press "q" in the menu screen to quit the program.
                 </u>
 
                 <br /><br />
-                Please make sure you quit the tool properly, this means you must press "q" in the menu
-                screen to quit the tool. When you exit the tool you may use the "kill this instance"
-                button to kill the terminal at which point you are free to start a new session.
+                When you exit the tool you may use the "kill this instance" button to kill the terminal
+                at which point you are free to start a new session.
 
                 <br /><br />
 
