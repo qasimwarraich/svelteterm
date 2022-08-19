@@ -12,7 +12,7 @@ comfort and "safety" of their browsers.
 ### Try it out!
 
 
-[![Website](https://img.shields.io/website?label=click%20me&up_color=light%20green&up_message=live&url=https%3A%2F%2Ftutor.chistole.ch)](https://tutor.chistole.ch) 
+[![Website](https://img.shields.io/website?label=click%20me&up_color=light%20green&up_message=live&url=https%3A%2F%2Fclitutor.chistole.ch)](https://clitutor.chistole.ch) 
 
 ## What is this?
 
