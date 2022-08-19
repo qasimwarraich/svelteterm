@@ -61,6 +61,7 @@
 <style>
     :root {
         background-color: #5c2c45;
+        background-color: black;
         font-family: cozettevectorregular, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
             Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     }
@@ -87,6 +88,7 @@
     }
 
     footer {
+        color: white;
         width: 100vw;
         bottom: 0;
         left: 0;
