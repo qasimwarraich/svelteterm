@@ -25,6 +25,8 @@ build-frontend-prod:
     image: node:16
 
     stage: build
+    only:
+        - main
     environment: production
 
     script:
@@ -33,7 +35,6 @@ build-frontend-prod:
         - echo $VITE_DOCKERENDPOINT >> .env
         - echo $VITE_WEBSOCKETATTACH >> .env
         - npm install
-        - npm run check
         - npm run build
 
     artifacts:
@@ -45,6 +46,8 @@ build-frontend-fedora:
     image: node:16
 
     stage: build
+    only:
+        - main
     environment: fedora
 
     script:
@@ -53,7 +56,6 @@ build-frontend-fedora:
         - echo $VITE_DOCKERENDPOINT >> .env
         - echo $VITE_WEBSOCKETATTACH >> .env
         - npm install
-        - npm run check
         - npm run build
 
     artifacts:
@@ -65,6 +67,8 @@ build-frontend-fedora-cli:
     image: node:16
 
     stage: build
+    only:
+        - cli-only
     environment: fedora-cli
 
     script:
@@ -73,7 +77,6 @@ build-frontend-fedora-cli:
         - echo $VITE_DOCKERENDPOINT >> .env
         - echo $VITE_WEBSOCKETATTACH >> .env
         - npm install
-        - npm run check
         - npm run build
 
     artifacts:
@@ -83,6 +86,8 @@ build-frontend-fedora-cli:
 
 deploy-job-ubuntu:
     stage: deploy
+    only:
+        - main
     environment: production
     allow_failure: false
     dependencies:
@@ -111,6 +116,7 @@ deploy-job-ubuntu:
         - echo LOGPATH=$LOGPATH >> .env
         - echo CERTPATH=$CERTPATH >> .env
         - echo CERTKEYPATH=$CERTKEYPATH >> .env
+        - echo DOCKERIMAGE=$DOCKERIMAGE >> .env
         - echo "Removing Old Server Binary"
         - ssh -o StrictHostKeyChecking=no $SSH_USER@$SSH_SERVER "rm /root/server/*";
         - echo "Adding New Server Binary And .env File"
@@ -121,6 +127,8 @@ deploy-job-ubuntu:
 
 deploy-job-fedora:
     stage: deploy
+    only:
+        - main
     environment: fedora
     allow_failure: false
     dependencies:
@@ -148,6 +156,7 @@ deploy-job-fedora:
         - echo LOGPATH=$LOGPATH >> .env
         - echo CERTPATH=$CERTPATH >> .env
         - echo CERTKEYPATH=$CERTKEYPATH >> .env
+        - echo DOCKERIMAGE=$DOCKERIMAGE >> .env
         - echo "Removing Old Server Binary"
         - ssh -o StrictHostKeyChecking=no $SSH_USER@$SSH_SERVER "rm /root/server/*";
         - echo "Adding New Server Binary And .env File"
@@ -158,6 +167,8 @@ deploy-job-fedora:
 
 deploy-job-fedora-cli:
     stage: deploy
+    only:
+        - cli-only
     environment: fedora-cli
     allow_failure: false
     dependencies:
@@ -185,6 +196,7 @@ deploy-job-fedora-cli:
         - echo LOGPATH=$LOGPATH >> .env
         - echo CERTPATH=$CERTPATH >> .env
         - echo CERTKEYPATH=$CERTKEYPATH >> .env
+        - echo DOCKERIMAGE=$DOCKERIMAGE >> .env
         - echo "Removing Old Server Binary"
         - ssh -o StrictHostKeyChecking=no $SSH_USER@$SSH_SERVER "rm /root/server/*";
         - echo "Adding New Server Binary And .env File"
