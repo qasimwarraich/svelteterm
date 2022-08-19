@@ -3,6 +3,7 @@ package dockerclient
 import (
 	"context"
 	"log"
+	"os"
 
 	"github.com/docker/docker/api/types"
 	"github.com/docker/docker/api/types/container"
@@ -21,7 +22,7 @@ func CreateContainer() string {
 			Hostname:  "cli-tutor",
 			Tty:       true,
 			OpenStdin: true,
-			Image:     "qasimwarraich/cli-tutor",
+			Image:     os.Getenv("DOCKERIMAGE"),
 		},
 		&container.HostConfig{},
 		nil,
