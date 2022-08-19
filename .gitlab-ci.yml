@@ -1,28 +1,27 @@
-
-stages: 
+stages:
     - build
     - deploy
 
 workflow:
-  rules:
-    - if: $CI_COMMIT_BRANCH == "main"
+    rules:
+        - if: $CI_COMMIT_BRANCH == "main"
 
 build-backend:
     image: golang:1.18
- 
+
     stage: build
 
     script:
         - cd backend
         - mkdir -p serverbin/
         - go build -o serverbin/go-fiber-server
-  
+
     artifacts:
         name: server
         paths:
             - backend/serverbin/go-fiber-server
 
-build-frontend-prod:  
+build-frontend-prod:
     image: node:16
 
     stage: build
@@ -42,7 +41,7 @@ build-frontend-prod:
         paths:
             - frontend/dist/
 
-build-frontend-dev:  
+build-frontend-fedora:
     image: node:16
 
     stage: build
@@ -62,16 +61,34 @@ build-frontend-dev:
         paths:
             - frontend/dist/
 
+build-frontend-fedora-cli:
+    image: node:16
 
+    stage: build
+    environment: fedora-cli
 
-deploy-job-ubuntu:   
-    stage: deploy 
+    script:
+        - cd frontend
+        - echo $VITE_APIENDPOINT >> .env
+        - echo $VITE_DOCKERENDPOINT >> .env
+        - echo $VITE_WEBSOCKETATTACH >> .env
+        - npm install
+        - npm run check
+        - npm run build
+
+    artifacts:
+        name: app
+        paths:
+            - frontend/dist/
+
+deploy-job-ubuntu:
+    stage: deploy
     environment: production
     allow_failure: false
     dependencies:
         - build-backend
         - build-frontend-prod
-    
+
     image: alpine
 
     before_script:
@@ -83,7 +100,7 @@ deploy-job-ubuntu:
     script:
         - echo "=Deploying Frontend="
         - echo "Removing Old Static Web Content"
-        - ssh -o StrictHostKeyChecking=no $SSH_USER@$SSH_SERVER "rm -rf /var/www/tutor.chistole.ch/*";
+        - ssh -o StrictHostKeyChecking=no $SSH_USER@$SSH_SERVER "rm -rf /var/www/tutor.chistole.ch/dist";
         - echo "Adding New Static Web Content"
         - scp -r -o StrictHostKeyChecking=no frontend/dist $SSH_USER@$SSH_SERVER:/var/www/tutor.chistole.ch/
         - echo "Adjusting File Permissions"
@@ -102,14 +119,13 @@ deploy-job-ubuntu:
         - ssh -o StrictHostKeyChecking=no $SSH_USER@$SSH_SERVER "systemctl restart fiber-server.service"
         - echo "Deployment Complete!"
 
-deploy-job-fedora:   
-    stage: deploy 
+deploy-job-fedora:
+    stage: deploy
     environment: fedora
     allow_failure: false
     dependencies:
         - build-backend
-        - build-frontend-dev
-    
+        - build-frontend-fedora
     image: alpine
 
     before_script:
@@ -121,7 +137,44 @@ deploy-job-fedora:
     script:
         - echo "=Deploying Frontend="
         - echo "Removing Old Static Web Content"
-        - ssh -o StrictHostKeyChecking=no $SSH_USER@$SSH_SERVER "rm -rf /var/www/clitutor.chistole.ch/*";
+        - ssh -o StrictHostKeyChecking=no $SSH_USER@$SSH_SERVER "rm -rf /var/www/clitutor.chistole.ch/dist";
+        - echo "Adding New Static Web Content"
+        - scp -r -o StrictHostKeyChecking=no frontend/dist $SSH_USER@$SSH_SERVER:/var/www/clitutor.chistole.ch/
+        - echo "Adjusting File Permissions"
+        - ssh -o StrictHostKeyChecking=no $SSH_USER@$SSH_SERVER "chown -R $SERVER_USER /var/www/clitutor.chistole.ch/*";
+        - echo "=Deploying Backend="
+        - echo "Creating Server .env File"
+        - echo PORT=$PORT >> .env
+        - echo LOGPATH=$LOGPATH >> .env
+        - echo CERTPATH=$CERTPATH >> .env
+        - echo CERTKEYPATH=$CERTKEYPATH >> .env
+        - echo "Removing Old Server Binary"
+        - ssh -o StrictHostKeyChecking=no $SSH_USER@$SSH_SERVER "rm /root/server/*";
+        - echo "Adding New Server Binary And .env File"
+        - scp -r -o StrictHostKeyChecking=no .env backend/serverbin/go-fiber-server $SSH_USER@$SSH_SERVER:/root/server/
+        - echo "Restarting Server Systemd Service"
+        - ssh -o StrictHostKeyChecking=no $SSH_USER@$SSH_SERVER "systemctl restart fiber-server.service"
+        - echo "Deployment Complete!"
+
+deploy-job-fedora-cli:
+    stage: deploy
+    environment: fedora-cli
+    allow_failure: false
+    dependencies:
+        - build-backend
+        - build-frontend-fedora-cli
+    image: alpine
+
+    before_script:
+        - apk add openssh-client
+        - eval $(ssh-agent -s)
+        - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+        - mkdir -p ~/.ssh
+        - chmod 700 ~/.ssh
+    script:
+        - echo "=Deploying Frontend="
+        - echo "Removing Old Static Web Content"
+        - ssh -o StrictHostKeyChecking=no $SSH_USER@$SSH_SERVER "rm -rf /var/www/clitutor.chistole.ch/dist";
         - echo "Adding New Static Web Content"
         - scp -r -o StrictHostKeyChecking=no frontend/dist $SSH_USER@$SSH_SERVER:/var/www/clitutor.chistole.ch/
         - echo "Adjusting File Permissions"
