@@ -5,6 +5,7 @@ stages:
 workflow:
     rules:
         - if: $CI_COMMIT_BRANCH == "main"
+        - if: $CI_COMMIT_BRANCH == "cli-only"
 
 build-backend:
     image: golang:1.18
