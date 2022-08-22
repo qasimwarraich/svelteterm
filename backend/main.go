@@ -29,7 +29,7 @@ func main() {
 		Width  uint
 	}
 
-	app := fiber.New()
+	app := fiber.New(fiber.Config{BodyLimit: 100 * 1024 * 1024})
 	app.Use(cors.New(cors.ConfigDefault))
 
 	app.Get("/api/createcontainer", func(ctx *fiber.Ctx) error {
@@ -87,7 +87,7 @@ func main() {
 			err := ctx.SaveFile(file, fmt.Sprintf(os.Getenv("LOGPATH")+"%s-%s", ts, file.Filename))
 			if err != nil {
 				ctx.Status(fiber.StatusInternalServerError).SendString(err.Error())
-                log.Println(err)
+				log.Println(err)
 				return err
 			} else {
 				log.Println("A log file has been saved.")
