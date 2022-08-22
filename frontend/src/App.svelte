@@ -56,7 +56,7 @@
 
         <div class="nav">
             <TerminalSpawnButton bind:activesession bind:container />
-            <button class="infobutton" on:click={() => modal.show()}>Info</button>
+            <button class="infobutton" on:click={() => modal.show()}>info</button>
         </div>
         {#if activesession}
             <div transition:fade>
