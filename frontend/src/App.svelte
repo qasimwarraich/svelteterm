@@ -47,7 +47,8 @@
 
         <div class="nav">
             <TerminalSpawnButton bind:activesession bind:container />
-            <button class="infobutton" on:click={() => modal.show()}>Info</button>
+            <button class="infobutton" on:click={() => modal.show()}>info</button>
+            <button class="docsbutton" on:click={() => window.open("https://cli.chistole.ch/docs", "_blank")}>docs</button>
         </div>
         {#if activesession}
             <div transition:fade>
@@ -115,6 +116,14 @@
 
     .infobutton {
         background-color: #ffb852;
+        font: inherit;
+        margin: 1em;
+        padding: 0.5em;
+        border: none;
+    }
+
+    .docsbutton {
+        background-color: #7c4dff;
         font: inherit;
         margin: 1em;
         padding: 0.5em;
